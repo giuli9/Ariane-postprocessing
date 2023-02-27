@@ -6,6 +6,6 @@ Python scripts to analyze and plot outputs from the particle tracking software A
 
 ### Horizontal streamfunction with background density
 
-### \theta-S diagrams
+### $\theta$-S diagrams
 
 ### Transit times
