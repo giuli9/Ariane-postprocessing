@@ -4,7 +4,11 @@ import matplotlib.pyplot as plt
 import cartopy.crs as ccrs
 import cartopy
 import math
-from cartopy.mpl.ticker import (LongitudeFormatter, LatitudeFormatter)
+import matplotlib.colors
+from cartopy.mpl.gridliner import LONGITUDE_FORMATTER, LATITUDE_FORMATTER
+from matplotlib import cm
+from matplotlib.colors import ListedColormap, BoundaryNorm, LinearSegmentedColormap
+
 
 def psi_dens(path):
   
@@ -508,6 +512,73 @@ def psi_dens(path):
   
   return Psi, dens2
 
+def axes(ax):
+  ax.set_extent([-8, 17, 33, 44])
+  ax.coastlines('10m')
+  ax.add_feature(cartopy.feature.NaturalEarthFeature("physical","land",'10m', \
+                                                edgecolor='none', facecolor="lightgrey"), zorder=0)
+  bc=ax.gridlines(crs=ccrs.PlateCarree(),draw_labels=True,zorder=0)
+  bc.top_labels=False
+  bc.right_labels=False
+  bc.xformatter = LONGITUDE_FORMATTER
+  bc.yformatter = LATITUDE_FORMATTER
+  bc.xlabel_style = {'size': 24}
+  bc.ylabel_style = {'size': 24}
+  return ax
 
+
+# start plotting
+
+fig, (ax1, ax2, ax3) = plt.subplots(3,sharex=True,figsize=(18,22),subplot_kw={'projection': ccrs.PlateCarree()},gridspec_kw = {'hspace':0.01})
+
+
+path='Tyrrhenian/ariane_statistics_quantitative.nc'
+
+
+#plt.figure(figsize=(13,7))
+#ax3=plt.axes(projection=ccrs.PlateCarree())
+
+# Tyrrhenian
+levels=np.arange(-0.31,0.11,0.06)
+
+for i in range (0,levels.size,1):
+    if levels[i]>0:
+        bs=axe(ax2).contour(xp_reg,yp_reg,Psi_dens(path)[0],[levels[i]],colors='black',linestyles='dashed',transform=ccrs.PlateCarree(),linewidths=1.5)
+        axe(ax2).clabel(bs, inline=True,fmt='% 2.2f', fontsize=13)
+    if levels[i]<0:
+        bs=axe(ax2).contour(xp_reg,yp_reg,Psi_dens(path)[0],[levels[i]],colors='black',linestyles='solid',transform=ccrs.PlateCarree(),linewidths=1.5)
+        axe(ax2).clabel(bs, inline=True,fmt='% 2.2f', fontsize=13)
+        
+
+
+
+# plot the sections
+
+for ip in range(0,nb_sec-1):
+    axe(ax2).plot([xt_reg[j1_reg[ip],i1_reg[ip]],xt_reg[j2_reg[ip],i2_reg[ip]]],[yt_reg[j1_reg[ip],i1_reg[ip]]\
+                                                                              ,yt_reg[j2_reg[ip],i2_reg[ip]]],\
+         transform=ccrs.PlateCarree(),color='black', linestyle='-')
+
+
+# Definying colormap
+colors=['#c6e1f1','#c2c5f3','#7ee98e','#f69253','#dd4c94',"#0d9edf"]
+cmap2=ListedColormap(colors)
+ticks=[27.0,27.5,28.6,28.8,29.0,29.1,29.2]
+norm = BoundaryNorm(ticks, cmap2.N)
+x,y=np.meshgrid(xt_reg[0,:],yt_reg[:,0])
+vmax=29.2
+vmin=27.0
+ff=axe(ax2).pcolormesh(x,y,Psi_dens(path)[1],shading='nearest',cmap=cmap2,norm=norm,vmin=round(vmin,1),vmax=round(vmax,1),transform=ccrs.PlateCarree(),zorder=1,alpha=0.8)
+
+
+axe(ax2).text(-7.5, 41.1, 'Northern Tyrrhenian \nentry 1% = 0.01 Sv',fontweight='bold', fontsize = 27,alpha=1)
+
+
+axes=np.array([ax1,ax2,ax3])
+cbar=fig.colorbar(ff,ax=axes.ravel().tolist(),ticks=ticks,norm=norm,boundaries=ticks,spacing='proportional', shrink=0.9, location='right')
+cbar.set_label(r'$\sigma_0$(kg/m$^3$)',size=28)
+cbar.ax.set_yticklabels(ticks,fontsize=26) 
+
+plt.savefig('Psi.jpg',dpi=450,bbox_inches='tight')
 
 
