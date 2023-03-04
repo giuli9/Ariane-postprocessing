@@ -18,15 +18,14 @@ ds1=xr.open_dataset("Lions/ariane_positions_quantitative.nc")
 ds2=xr.open_dataset("Tyrrhenian/ariane_positions_quantitative.nc")
 ds3=xr.open_dataset("Sicily/ariane_positions_quantitative.nc")
 
-# Name of the initial and final section
-# (forward in time)
+# Name of the initial and final section (forward in time)
 initial_section1="Gulf of Lions"
 initial_section2="Northern Tyrrhenian"
 initial_section3="Sicily Strait"
 final_section="Gibraltar Strait"
 
 #=====================================================================
-# the normalization factor is the cumulative transport of all and only
+# the normalization factor is the cumulative transport of all the
 # particles which have reached final sections (no meandering, lost and 
 # evaporated)
 #=====================================================================
@@ -225,7 +224,7 @@ cbr.ax.set_xticklabels(['{:.0f}'.format(0),'{:.2f}'.format(0.01),'{:.2f}'.format
 axs[1,0]=custome(axs[1,0],initial_section2)
 
 #===================================================================
-# final section entering at the Northern Tyrrhenian section
+# final section entering from the Northern Tyrrhenian section
 #===================================================================
 bounds = [0,0.01, 0.05, 0.09, 0.13, 0.17, 0.21, 0.25]
 norm = BoundaryNorm(bounds, all_cmp.N)
@@ -263,7 +262,7 @@ cbr.ax.set_xticklabels(['{:.0f}'.format(0),'{:.2f}'.format(0.01),'{:.1f}'.format
 axs[2,0]=custome(axs[2,0],initial_section3)
 
 #===================================================================
-# final section entering at the Sicily Strait section
+# final section entering from the Sicily Strait section
 #===================================================================
 bounds = [0,0.01, 0.1, 1, 1.5,2, 2.5, 3, 3.5, 4, 4.3 ]
 norm = BoundaryNorm(bounds, all_cmp.N)
@@ -280,7 +279,7 @@ cbr.ax.set_xticklabels(['{:.0f}'.format(0),'{:.2f}'.format(0.01),'{:.1f}'.format
 # customize axes
 axs[2,1]=custome(axs[2,1],final_section)
 
-# plotting the weighted mean
+# plotting the weighted means
 axs[0, 1].scatter(s1i, t1i, s=250, c='green', marker=(5, 1))
 axs[0, 0].scatter(s1f, t1f, s=250, c='green', marker=(5, 1))
 axs[1, 1].scatter(s2i, t2i, s=250, c='green', marker=(5, 1))
