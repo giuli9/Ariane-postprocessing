@@ -10,7 +10,7 @@ The control sections are defined in the **sections.txt** file as segments, formi
 
 In order to better visualise the pathways of water masses, three quantitative sub-experiments (one for each section) were carried out considering only the subset of particles that reached the considered section. The output files of the three sub-experiments are in the respective folders **/Lions**, **/Tyrrhenian**, **/Sicily**, while those concerning the complete experiment are in **/complete_experiment**.
 
-In each folder there are two .nc files: **ariane_statistics_quantitative.nc** and **ariane_positions_quantitative.nc**. The former is used to calculate the horizontal streamfunction of the vertically integrated transport (**streamfunction.py**), while the latter file is used to calculate transit times (**transit_times.py**) and binned TS diagrams (**ts_diagrams.py**). In addition, each folder contains the **namelist** file for the parameters configuration required by Ariane for the experiment set-up, and the .txt file of statistics.  
+In each folder there are two .nc files: **ariane_statistics_quantitative.nc** and **ariane_positions_quantitative.nc**. The former is used to calculate the horizontal streamfunction of the vertically integrated transport (**streamfunction.py**), while the latter file is used to calculate transit times (**transit_times.py**) and binned TS diagrams (**ts_diagrams.py**). In addition, each folder contains the **namelist** file for the parameters configuration required by Ariane for the experiment set-up, and the .txt file of statistics at the initial and final sections.  
 
 The **mesh_mask_nemo.nc** file contains the information concerning the spatial domain of the reanalysis fields. 
 
