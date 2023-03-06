@@ -1,9 +1,9 @@
 # Ariane-postprocessing
-Python scripts to analyze and plot outputs from the particle tracking software Ariane.
+Python scripts to analyse and plot the results of the quantitative experiment performed with the particle tracking software Ariane. 
 
 [What is Ariane?](http://ariane.lagrangian.free.fr/ariane.html)
 
-## Quantitative mode
+## Description of files
 About six million particles were initialised at the Strait of Gibraltar and followed back in time until they reached one of the control sections, in a maximum of 78 years. 
 
 The control sections are defined in the **sections.txt** file as segments, forming vertical planes in the zonal or meridional directions, or horizontal planes, as in the case of the lid over the domain to trap particles entering the atmosphere. They are numbered sequentially, starting with section number 1, which corresponds to the initial section. Section number 2 corresponds to the Strait of Sicily, section number 3 to the Gulf of Lions and the number 4 to the Northern Tyrrhenian Sea. Ariane requires the specification of T-points indices for sections definition.
